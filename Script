@@ -3,7 +3,8 @@
 // @description    Outil de discussion instantanée pour les forums de Jeuxvideo.com
 // @author         Blaff
 // @namespace      JVChatPremium
-// @version        0.1.89
+// @license        MIT
+// @version        0.1.95
 // @match          http://*.jeuxvideo.com/forums/42-*
 // @match          https://*.jeuxvideo.com/forums/42-*
 // @match          http://*.jeuxvideo.com/forums/1-*
@@ -91,7 +92,9 @@ header.jv-header-menu,
 .layout__adHeader,
 .layout__videoFooter,
 .layout__contentAside,
-.layout__footer
+.layout__footer,
+.layout__contentTop,
+.header
 {
     display: none!important;
 }
@@ -107,6 +110,7 @@ body,
     height: 100%;
     width: 100%;
 }
+
 #discussion,
 #discussion > .conteneur-messages-pagi
 {
@@ -136,13 +140,20 @@ body {
     pointer-events: none;
 }
 
+#jvchat-leftbar h4 {
+    font-weight: 600;
+}
+
 #bloc-formulaire-forum > .form-post-message > .row {
     margin: 0;
 }
 
+.jv-editor > .conteneur-editor {
+    background-color: var(--jv-bg-color);
+}
+
 .jv-editor > .conteneur-editor > .text-editor {
     border: 0;
-    background: none;
     display: flex!important;
 }
 
@@ -174,9 +185,9 @@ body {
 }
 
 #jvchat-leftbar-button span {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: white;
-    padding: 0 1rem 0 0rem;
+    padding: 0 0.5rem 0 0rem;
     max-width: 100%;
     cursor: pointer;
     opacity: 0.3;
@@ -186,7 +197,7 @@ body {
     opacity: 1;
 }
 
-#page-messages-forum {
+#mp {
     margin: 0;
     padding: 0;
     display: block;
@@ -194,7 +205,7 @@ body {
     font-size: .875rem;
 }
 
-#mp {
+#page-messages-forum {
     margin: 0;
     padding: 0;
     display: block;
@@ -232,6 +243,7 @@ body {
 }
 
 
+
 #page-messages-forum {
     margin: 0;
     display: flex;
@@ -242,19 +254,12 @@ body {
     display: flex;
 }
 
+
 label {
     display: inline-block;
     max-width: 100%;
     margin-bottom: .3125rem;
     font-weight: 700;
-}
-
-#forum-main-col {
-    flex-basis: 35rem;
-    flex-grow: 100;
-    overflow-x: auto;
-    position: relative;
-    min-width: 13rem;
 }
 
 #discussion {
@@ -267,6 +272,13 @@ label {
     width: 100%;
 }
 
+#forum-main-col {
+    flex-basis: 35rem;
+    flex-grow: 100;
+    overflow-x: auto;
+    position: relative;
+    min-width: 13rem;
+}
 
 #jvchat-right-padding {
     flex-shrink:1000;
@@ -274,11 +286,6 @@ label {
 }
 
 #forum-main-col > .conteneur-messages-pagi {
-    display: flex;
-    flex-direction: column;
-}
-
-#discussion > .conteneur-messages-pagi {
     display: flex;
     flex-direction: column;
 }
@@ -299,17 +306,11 @@ label {
     max-height: unset;
 }
 
-
 .form-post-message {
     margin: 0;
 }
 
 #message_topic {
-    resize: none;
-    min-width: unset;
-}
-
-#message {
     resize: none;
     min-width: unset;
 }
@@ -327,14 +328,6 @@ label {
     max-height: 6.5rem;
     overflow: auto;
 }
-
-.jvchat-reduced #message {
-    padding: 0.3rem;
-    height: 1.7rem;
-    max-height: 6.5rem;
-    overflow: auto;
-}
-
 
 .jvchat-reduced .jv-editor .conteneur-editor > * {
     display: none;
@@ -399,12 +392,6 @@ label {
 }
 
 #forum-main-col {
-    display: block;
-    padding: 0;
-    max-width: unset;
-}
-
-#discussion {
     display: block;
     padding: 0;
     max-width: unset;
@@ -512,7 +499,7 @@ label {
     margin: 0;
     display: inline-block;
     font-size: .875rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.1;
 }
 
@@ -560,6 +547,7 @@ label {
 .jvchat-edition-textarea {
     outline: none;
     width: 100%;
+    background-color: var(--jv-input-bg-color);
 }
 
 hr.jvchat-ruler:first-of-type {
@@ -571,10 +559,10 @@ hr.jvchat-ruler:first-of-type {
     margin: 0rem 0rem .35rem 0rem;
     border: 0;
     border-style: solid;
-    border-top: 0.0625rem solid #eee;
+    border-top: 0.0625rem solid var(--jv-disabled-bg-color);
     border-top-width: 0.0625rem;
     border-bottom-width: 0.0625rem;
-    border-block-end-color: #ddd;
+    border-block-end-color: var(--jv-border-color);
     box-sizing: content-box;
     height: 0!important;
     color: unset;
@@ -602,6 +590,7 @@ hr.jvchat-ruler:first-of-type {
 .jvchat-content .text-enrichi-forum blockquote.blockquote-jv {
     margin: 0.2rem 0;
     padding: 0rem 0.3rem 0 0.3rem;
+    color:#8b8b8b;
 }
 
 .jvchat-content .text-enrichi-forum .nested-quote-toggle-box {
@@ -664,13 +653,43 @@ hr.jvchat-ruler:first-of-type {
 }
 
 #jvchat-user-mp {
-    font-size: 1.3rem;
+    font-size: 2rem;
     margin: auto;
+    position: relative;
+}
+
+#jvchat-user-mp::before {
+    font-family: "icons";
+    content: "";
 }
 
 #jvchat-user-notif {
-    font-size: 1.7rem;
+    font-size: 2rem;
     margin: auto;
+    position: relative;
+}
+
+#jvchat-user-notif::before {
+    font-family: "icons";
+    content: "";
+}
+
+#jvchat-user-notif.has-notif::after,
+#jvchat-user-mp.has-notif::after
+{
+    z-index: 2;
+    content: " " attr(data-val) "";
+    color: #fff;
+    line-height: 1.25rem;
+    font-size: 0.9rem;
+    padding: 0 .25rem;
+    position: absolute;
+    top: .6875rem;
+    right: -.6875rem;
+    background: #ff3c00;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 1rem;
 }
 
 #jvchat-user-pseudo {
@@ -686,7 +705,7 @@ hr.jvchat-ruler:first-of-type {
     display: flex;
 }
 
-#jvchat-user-info .jv-header-menu {
+#jvchat-mp-and-notif {
     position: unset;
     display: flex;
     justify-content: center;
@@ -712,6 +731,13 @@ hr.jvchat-ruler:first-of-type {
 }
 
 #bloc-formulaire-forum .jv-editor > .conteneur-editor {
+    margin: 0;
+    border: 0;
+    padding: 0.5rem;
+    line-height: normal;
+}
+
+#mp .jv-editor > .conteneur-editor {
     margin: 0;
     border: 0;
     padding: 0.5rem;
@@ -923,7 +949,6 @@ hr.jvchat-ruler:first-of-type {
 }
 
 .jvchat-night-mode #message_topic,
-.jvchat-night-mode #message,
 .jvchat-night-mode .btn-group {
     background: #484C52!important;
 }
@@ -961,6 +986,7 @@ hr.jvchat-ruler:first-of-type {
 .jvchat-night-mode .bloc-spoil-jv .contenu-spoil {
     background-color: #2d2d2d!important;
     border-color: #202020!important;
+    color: #dcddde !important;
 }
 
 /* Lavydavant */
@@ -985,7 +1011,7 @@ hr.jvchat-ruler:first-of-type {
     margin: 0 0 .5rem;
 }
 
-.jv-header-menu .nav-link, .nav-link-search, .account-pseudo, .jv-account-number-mp, .jv-account-number-notif   {
+#jvchat-mp-and-notif .nav-link, .nav-link-search, .account-pseudo, .jv-account-number-mp, .jv-account-number-notif   {
     color: white !important;
 }
 
@@ -1018,6 +1044,35 @@ hr.jvchat-ruler:first-of-type {
   opacity: 0.5;
 }
 
+#jvchat-leftbar-config-open::before {
+    content: "";
+    font-family: "icons";
+}
+
+#jvchat-leftbar-config-close::before {
+    content: "";
+    font-family: "icons";
+}
+
+.form-post-message {
+    margin: 0;
+}
+
+#message {
+    resize: none;
+    min-width: unset;
+}
+
+
+.jvchat-reduced #message {
+    padding: 0.3rem;
+    height: 1.7rem;
+    max-height: 6.5rem;
+    overflow: auto;
+}
+
+
+
 
 </style>`;
 
@@ -1026,8 +1081,8 @@ let PANEL = `
     <div class='panel panel-jv-forum'>
         <div id="jvchat-leftbar-button">
             <div id="jvchat-leftbar-config">
-                <span id="jvchat-leftbar-config-open" class="nav-icon-config" title="Afficher les paramètres"></span>
-                <span id="jvchat-leftbar-config-close" class="nav-icon-close jvchat-hide" title="Fermer les paramètres"></span>
+                <span id="jvchat-leftbar-config-open" title="Afficher les paramètres"></span>
+                <span id="jvchat-leftbar-config-close" class="jvchat-hide" title="Fermer les paramètres"></span>
             </div>
             <div id="jvchar-leftbar-size">
                 <span id="jvchat-leftbar-reduce" class="icon-arrow-left" title="Masquer la sidebar"></span>
@@ -1041,7 +1096,7 @@ let PANEL = `
                     <h4 id='jvchat-user-pseudo'></h4>
                     <div id='jvchat-user-info'>
                         <a title="Ouvrir le profil" id="jvchat-user-avatar-link" target="_blank"><div id='jvchat-user-avatar' class='jvchat-rounded jvchat-user-avatar'></div></a>
-                        <div class='jv-header-menu'>
+                        <div id='jvchat-mp-and-notif'>
                             <a target="_blank" href="https://www.jeuxvideo.com/messages-prives/boite-reception.php" title="Ouvrir la boîte de réception" id="jvchat-user-mp-link"><span id="jvchat-user-mp" class="jv-account-number-mp" data-val="0"></span></a>
                             <a target="_blank" title="Ouvrir les notifications" href="https://www.jeuxvideo.com/messages-prives/boite-reception.php" id="jvchat-user-notif-link"><span id="jvchat-user-notif" class="jv-account-number-notif" data-val="0"></span></a>
                         </div>
@@ -1162,7 +1217,6 @@ let turboWarnTimeoutId = -1;
 let turboDateSessions = [];
 let refreshDegraded = false;
 let refreshDegradedTimeoutId = -1;
-let useMobileForUpdateMessages = false;
 let timeoutedDates = [];
 let refreshInfosAcceptable = [];
 let sondageChoices = undefined;
@@ -1173,7 +1227,6 @@ let currentFetchedPage = 1;
 let currentTimeoutId = -1;
 let shouldCheckEdited = false;
 let checkEditedInterval = 30000;
-let switchToMobileTimeoutId = -1;
 let refreshInfosTimeoutId = -1;
 let postingMessage = false;
 let fetchingMessages = false;
@@ -1216,14 +1269,12 @@ function getTimestamp() {
 }
 
 function getForm(doc) {
-
-if (document.URL.includes("jeuxvideo.com/messages-prives")){
+    if (document.URL.includes("jeuxvideo.com/messages-prives")){
     return doc.getElementsByClassName('js-form-post-mp')[0];
-}
-    else{
-
-    return doc.getElementsByClassName('form-post-message')[0];
     }
+    else{
+     return doc.getElementsByClassName('form-post-message')[0];
+   }
 }
 
 function getHash(doc) {
@@ -1258,23 +1309,6 @@ function getTopicError(elem) {
         return error;
     }
     return `Le topic présente une erreur: ${error.getAttribute("alt")}`;
-}
-
-function parseSondageMobile(elem) {
-    let blocSondage = elem.getElementsByClassName("bloc-sondage")[0];
-    if (!blocSondage) {
-        return null;
-    }
-    let intitule = blocSondage.getElementsByClassName("sondage-titre")[0].textContent.trim().replace("Sondage : ", "");
-
-    let results = [];
-    let responses = blocSondage.getElementsByClassName("sondage-reponses")[0];
-    let spans = responses.getElementsByTagName("span");
-    for (let span of spans) {
-        let pourcent = parseInt(span.textContent.trim().split(" ")[0]);
-        results.push({ pourcent: pourcent });
-    }
-    return { answered: false, intitule: intitule, results: results, votes: undefined };
 }
 
 
@@ -1336,6 +1370,7 @@ function toggleTextarea() {
 
     let isDown = isScrollDown();
 
+
     if (document.URL.includes("jeuxvideo.com/messages-prives")){
         document.getElementById("repondre-mp").getElementsByClassName("jv-editor-toolbar")[0].classList.toggle("jvchat-hide");
         document.getElementById("repondre-mp").classList.toggle("jvchat-reduced");
@@ -1344,6 +1379,7 @@ function toggleTextarea() {
         document.getElementById("bloc-formulaire-forum").getElementsByClassName("jv-editor-toolbar")[0].classList.toggle("jvchat-hide");
         document.getElementById("bloc-formulaire-forum").classList.toggle("jvchat-reduced");
     }
+
     document.getElementById("jvchat-enlarge").classList.toggle("jvchat-hide");
     document.getElementById("jvchat-reduce").classList.toggle("jvchat-hide");
     document.getElementById("jvchat-post").classList.toggle("jvchat-hide");
@@ -1356,6 +1392,7 @@ function toggleTextarea() {
 }
 
 function parseURL(url) {
+
     let regex ;
 
     if (document.URL.includes("jeuxvideo.com/messages-prives")){
@@ -1367,6 +1404,43 @@ function parseURL(url) {
         let [_, domain, ids, page, nums, title, htm, anchor] = url.match(regex);
         return { domain: domain, ids: ids, page: page, nums: nums, title: title, htm: htm, anchor: anchor };
     }
+}
+
+function buildURL(dict) {
+    if (document.URL.includes("jeuxvideo.com/messages-prives")){
+        return `${dict.domain}${dict.ids}`;
+    }
+
+    else{
+        return `${dict.domain}${dict.ids}${dict.page}${dict.nums}${dict.title}${dict.htm}${dict.anchor}`;
+    }
+}
+
+function getForum(document) {
+    //let ariane ;
+
+    //if (document.URL.includes("jeuxvideo.com/messages-prives")){
+      //  ariane = document.getElementsByClassName("bloc-fil-ariane-crumb")[0];
+    //}
+    //else{
+      //   ariane = document.getElementsByClassName("bloc-fil-ariane-crumb-forum")[0];
+    //}
+
+    //let links = ariane.getElementsByTagName("a");
+
+    let links = document.querySelectorAll(".spreadContainer nav.breadcrumb > a");
+    let title = "";
+    let forumLink = "";
+
+    for (let i = links.length - 1; i >= 0; i--) {
+        forumLink = links[i];
+        title = forumLink.innerHTML.trim();
+        if (title.startsWith("Forum ")) {
+            break;
+        }
+    }
+
+    return { href: forumLink.getAttribute("href"), title: title.replace("Forum ", "") };
 }
 
 //source stackoverflow https://stackoverflow.com/questions/979975/get-the-values-from-the-get-parameters-javascript
@@ -1384,42 +1458,6 @@ function getQueryParams(qs) {
     return params;
 }
 
-
-function buildURL(dict) {
-    if (document.URL.includes("jeuxvideo.com/messages-prives")){
-        return `${dict.domain}${dict.ids}`;
-    }
-
-    else{
-        return `${dict.domain}${dict.ids}${dict.page}${dict.nums}${dict.title}${dict.htm}${dict.anchor}`;
-    }
-}
-
-function getForum(document) {
-    let ariane ;
-
-    if (document.URL.includes("jeuxvideo.com/messages-prives")){
-        ariane = document.getElementsByClassName("bloc-fil-ariane-crumb")[0];
-    }
-    else{
-         ariane = document.getElementsByClassName("bloc-fil-ariane-crumb-forum")[0];
-    }
-
-    let links = ariane.getElementsByTagName("a");
-    let title = "";
-    let forumLink = "";
-
-    for (let i = links.length - 1; i >= 0; i--) {
-        forumLink = links[i];
-        title = forumLink.innerHTML.trim();
-        if (title.startsWith("Forum ")) {
-            break;
-        }
-    }
-
-    return { href: forumLink.getAttribute("href"), title: title.replace("Forum ", "") };
-}
-
 function getLastPage(document) {
     let blocPages = document.getElementsByClassName("bloc-liste-num-page")[0];
     let spans = blocPages.getElementsByTagName("span");
@@ -1433,23 +1471,6 @@ function getLastPage(document) {
     return lastPage;
 }
 
-function parseMessageMobile(elem) {
-    let author = elem.getElementsByClassName("text-auteur")[0].textContent.trim();
-    let blacklisted = false;
-    let avatar = elem.getElementsByClassName("user-avatar-msg")[0];
-    if (avatar !== undefined) {
-        avatar = avatar.getAttribute("data-srcset");
-    }
-    let date = elem.getElementsByClassName("date-post")[0].textContent.trim();
-    let content = elem.getElementsByClassName("message")[0];
-    content.setAttribute("class", "txt-msg  text-enrichi-forum");
-    let id = parseInt(elem.getAttribute("id").split("_")[1]);
-    let edited = undefined;
-    return {
-        author: author, dateString: date, date: parseDate(date), avatar: avatar, edited: edited,
-        id: id, content: content, blacklisted: blacklisted
-    };
-}
 
 function parseMessage(elem) {
     let conteneurs = elem.getElementsByClassName("conteneur-message");
@@ -1458,7 +1479,7 @@ function parseMessage(elem) {
     let blacklisted = conteneurs[0].classList.contains("conteneur-message-blacklist");
     let avatar = conteneur.getElementsByClassName("user-avatar-msg")[0];
     if (avatar !== undefined) {
-        avatar = avatar.getAttribute("data-srcset");
+        avatar = avatar.getAttribute("data-src");
     }
     let date = conteneur.getElementsByClassName("bloc-date-msg")[0].textContent.trim();
     let content = conteneur.getElementsByClassName("txt-msg")[0];
@@ -1475,18 +1496,15 @@ function parseMessage(elem) {
 }
 
 function parseUserInfo(elem) {
-    let accountMp = elem.getElementsByClassName("jv-nav-account-mp")[0];
+    let accountMp = elem.getElementsByClassName("headerAccount__pm")[0];
     if (accountMp === undefined) {
         return { author: undefined, avatar: undefined, mp: undefined, notif: undefined };
     }
-    let numberMp = accountMp.getElementsByClassName("jv-account-number-mp")[0];
-    let accountNotif = elem.getElementsByClassName("jv-nav-account-notif")[0];
-    let numberNotif = accountNotif.getElementsByClassName("jv-account-number-notif")[0];
-    let accountUser = elem.getElementsByClassName("jv-nav-account-user")[0];
-    let avatarBox = accountUser.getElementsByClassName("account-avatar-box")[0];
-    let authorBox = accountUser.getElementsByClassName("account-pseudo")[0];
-    let mp = parseInt(numberMp.getAttribute("data-val"));
-    let notif = parseInt(numberNotif.getAttribute("data-val"));
+    let accountNotif = elem.getElementsByClassName("headerAccount__notif")[0];
+    let avatarBox = elem.getElementsByClassName("headerAccount__avatar")[0];
+    let authorBox = elem.getElementsByClassName("headerAccount__pseudo")[0];
+    let mp = parseInt(accountMp.getAttribute("data-val"));
+    let notif = parseInt(accountNotif.getAttribute("data-val"));
     let avatar = avatarBox.style["background-image"].slice(5, -2).replace("/avatar-md/", "/avatar/");
     let author = authorBox.textContent.trim();
     return { author: author, avatar: avatar, mp: mp, notif: notif };
@@ -1499,28 +1517,6 @@ function getPage(elem) {
         page = parseInt(pageActive.textContent.trim());
     }
     return page;
-}
-
-function parseTopicInfoMobile(elem) {
-    let title = elem.getElementsByClassName("bloc-nom-sujet")[0].getElementsByTagName("span")[0].textContent.trim();
-    let connected = undefined;
-    let page = 1;
-    let lastPage = 1;
-    let pagination = elem.getElementsByClassName("pagination-b")[0];
-    if (pagination !== undefined) {
-        let numPage = pagination.getElementsByClassName("num-page")[0];
-        if (numPage !== undefined) {
-            page = parseInt(numPage.textContent.trim());
-        }
-        let rightElt = pagination.getElementsByClassName("right-elt")[0];
-        let lastPageStr = rightElt.textContent.trim();
-        if (lastPageStr !== "") {
-            lastPage = parseInt(lastPageStr);
-        } else {
-            lastPage = page;
-        }
-    }
-    return { title: title, connected: connected, lastPage: lastPage, page: page };
 }
 
 function parseTopicInfo(elem) {
@@ -1659,12 +1655,10 @@ function clearPage(document) {
 
     let previsu = bloc.getElementsByClassName("previsu-editor")[0];
 
-
     if (previsu) {
         previsu.parentElement.removeChild(previsu);
     }
 
-     
     if (messageTopic) {
         messageTopic.classList.add("jvchat-textarea");
         messageTopic.setAttribute("placeholder", "Hop hop hop, le message ne va pas s'écrire tout seul !");
@@ -1675,8 +1669,19 @@ function clearPage(document) {
         document.getElementById("jvchat-reduce").addEventListener("click", tryCatch(toggleTextarea));
     }
     document.getElementsByClassName("conteneur-messages-pagi")[0].insertAdjacentHTML("afterbegin", "<div id='jvchat-main'><hr class='jvchat-ruler'></div>");
+    //document.getElementById("forum-main-col").insertAdjacentHTML("afterbegin", "<div id='jvchat-alerts'><div id='jvchat-fixed-alert' class='jvchat-hide'><div class='alert-row'></div></div><div id='jvchat-turbo-warning' class='jvchat-hide'><button class='close jvchat-alert-hide' aria-hidden='true' data-dismiss='alert' type='button'>×</button><div class='alert-row'></div></div><div id='jvchat-degraded-refresh-warning' class='jvchat-hide'><div class='alert-row'></div></div></div>");
 
-let toolbar ;
+    //document.getElementsByClassName("layout__contentMain")[0].insertAdjacentHTML("afterbegin", PANEL);
+    //document.getElementsByClassName("layout__contentMain")[0].insertAdjacentHTML("beforeend", "<div id='jvchat-right-padding'></div>");
+
+    //document.getElementById("page-messages-forum").classList.add("jvchat-root");
+
+    //document.getElementById("bloc-formulaire-forum").classList.add("jvchat-reduced");
+    //document.getElementById("bloc-formulaire-forum").classList.add("jvchat-hide");
+
+    //let toolbar = document.getElementById("bloc-formulaire-forum").getElementsByClassName("jv-editor-toolbar")[0];
+
+    let toolbar ;
     if (document.URL.includes("jeuxvideo.com/messages-prives")){
 
         //let col_left = document.getElementsByClassName("col-lg-3")[0];
@@ -1702,10 +1707,19 @@ let toolbar ;
         document.getElementsByClassName("layout__content")[0].insertAdjacentHTML("beforeend", "<div id='jvchat-right-padding'></div>");
         document.getElementById("repondre-mp").classList.add("jvchat-reduced");
         document.getElementById("repondre-mp").classList.add("jvchat-hide");
+
+        if (configuration["night_mode"]) {
+           document.getElementById("mp").classList.add("jvchat-night-mode");
+        }
+
         document.getElementById("mp").classList.add("jvchat-root");
         toolbar = document.getElementById("repondre-mp").getElementsByClassName("jv-editor-toolbar")[0];
     }
     else{
+        if (configuration["night_mode"]) {
+            document.getElementById("page-messages-forum").classList.add("jvchat-night-mode");
+        }
+
         document.getElementById("forum-main-col").insertAdjacentHTML("afterbegin", "<div id='jvchat-alerts'><div id='jvchat-fixed-alert' class='jvchat-hide'><div class='alert-row'></div></div><div id='jvchat-turbo-warning' class='jvchat-hide'><button class='close jvchat-alert-hide' aria-hidden='true' data-dismiss='alert' type='button'>×</button><div class='alert-row'></div></div><div id='jvchat-degraded-refresh-warning' class='jvchat-hide'><div class='alert-row'></div></div></div>");
         document.getElementsByClassName("layout__contentMain")[0].insertAdjacentHTML("afterbegin", PANEL);
         document.getElementsByClassName("layout__contentMain")[0].insertAdjacentHTML("beforeend", "<div id='jvchat-right-padding'></div>");
@@ -1714,7 +1728,6 @@ let toolbar ;
         document.getElementById("page-messages-forum").classList.add("jvchat-root");
         toolbar = document.getElementById("bloc-formulaire-forum").getElementsByClassName("jv-editor-toolbar")[0];
     }
-
 
     if (toolbar) {
         toolbar.classList.add("jvchat-hide");
@@ -1736,9 +1749,6 @@ let toolbar ;
 
     document.getElementById("jvchat-night-mode-checkbox").checked = configuration["night_mode"];
     document.getElementById("jvchat-night-mode-checkbox").addEventListener("change", tryCatch(toggleNightModeOption));
-    if (configuration["night_mode"]) {
-        document.getElementById("page-messages-forum").classList.add("jvchat-night-mode");
-    }
 
     document.getElementById("jvchat-hide-mosaic-checkbox").checked = configuration["hide_mosaic"];
     document.getElementById("jvchat-hide-mosaic-checkbox").addEventListener("change", tryCatch(toggleHideMosaicOption));
@@ -1911,14 +1921,12 @@ function changeMaxWidthOption(event) {
 }
 
 function adjustMaxWidth(maxWidth) {
-
     if (document.URL.includes("jeuxvideo.com/messages-prives")){
         document.getElementById("discussion").style["flex-grow"] = maxWidth;
     }
     else{
         document.getElementById("forum-main-col").style["flex-grow"] = maxWidth;
     }
-
     document.getElementById("jvchat-right-padding").style["flex-grow"] = 100 - maxWidth;
 }
 
@@ -1941,6 +1949,15 @@ function postMessage() {
         addAlertbox("danger", "Impossible de poster le message, aucun formulaire trouvé");
         return;
     }
+
+    //let textarea = document.getElementById("message_topic");
+
+//    let formData = serializeForm(freshForm);
+  //  formData["message_topic"] = textarea.value;
+    //let formulaire = document.getElementById("bloc-formulaire-forum");
+
+    //formulaire.classList.add("jvchat-disabled-form");
+    //textarea.setAttribute("disabled", "true");
 
     let textarea;
 
@@ -1968,6 +1985,7 @@ if (document.URL.includes("jeuxvideo.com/messages-prives")){
 
     formulaire.classList.add("jvchat-disabled-form");
     textarea.setAttribute("disabled", "true");
+
 
     let timestamp = getTimestamp();
 
@@ -2012,8 +2030,7 @@ if (document.URL.includes("jeuxvideo.com/messages-prives")){
 
     postingMessage = true;
 
-
-    let url;
+let url;
     if (document.URL.includes("jeuxvideo.com/messages-prives")){
         url = "https://www.jeuxvideo.com/messages-prives/message_ws.php";
         formData.message = formData.message_topic
@@ -2026,6 +2043,7 @@ if (document.URL.includes("jeuxvideo.com/messages-prives")){
 
 
     console.log(makeFormData(formData));
+
 
     request("POST", document.URL, onSuccess, onError, onTimeout, makeFormData(formData), false, timeout, false);
 }
@@ -2208,6 +2226,7 @@ function setTextareaHeight(plusOne) {
          textarea = document.getElementById("message_topic");
     }
 
+
     if (!isReduced) {
         textarea.style["height"] = "";
         return;
@@ -2272,23 +2291,9 @@ function makeFormData(dict) {
 
 function getMessages(document) {
     let blocMessages = document.getElementsByClassName("bloc-message-forum");
-
     let messages = [];
     for (let bloc of blocMessages) {
         messages.push(parseMessage(bloc));
-    }
-    return messages;
-}
-
-function getMessagesMobile(document) {
-    let listMessages = document.getElementsByClassName("liste-messages")[0];
-    if (listMessages === undefined) {
-        return [];
-    }
-    let messages = [];
-    let posts = listMessages.getElementsByClassName("post");
-    for (let post of posts) {
-        messages.push(parseMessageMobile(post));
     }
     return messages;
 }
@@ -2398,7 +2403,6 @@ function formatDate(date) {
 }
 
 function makeMessage(message) {
-
     let content = message.content;
     fixMessage(content);
     detectMosaic(content);
@@ -2464,14 +2468,6 @@ function makeMessage(message) {
     return html;
 }
 
-function parseDate(string) {
-    let [date, time] = string.toLowerCase().split("à");
-    let [day, month, year] = date.trim().split(" ");
-    let [hour, minute, second] = time.trim().split(":");
-    let monthIndex = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"].indexOf(month.trim().toLowerCase());
-    return new Date(parseInt(year), monthIndex, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second));
-}
-
 //source stackoverflow https://stackoverflow.com/questions/4777077/removing-elements-by-class-name
 function removeElementsByClass(className){
     const elements = document.getElementsByClassName(className);
@@ -2480,12 +2476,15 @@ function removeElementsByClass(className){
     }
 }
 
+function parseDate(string) {
+    let [date, time] = string.toLowerCase().split("à");
+    let [day, month, year] = date.trim().split(" ");
+    let [hour, minute, second] = time.trim().split(":");
+    let monthIndex = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"].indexOf(month.trim().toLowerCase());
+    return new Date(parseInt(year), monthIndex, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second));
+}
 
-function addMessages(messages, editing, requestTimestamp, onMobile) {
-
-    //Comme tel, les messages de MP renvoie NaN en ID donc je fais une combinaison de l'auteur + date message
-
-
+function addMessages(messages, editing, requestTimestamp) {
     let main = document.getElementById("jvchat-main");
     let hasNewMessages = false;
     let init = true;
@@ -2499,6 +2498,7 @@ function addMessages(messages, editing, requestTimestamp, onMobile) {
             idMP = message.author + message.dateString;
             message.id = idMP;
         }
+
 
         let id = message.id;
 
@@ -2530,7 +2530,7 @@ function addMessages(messages, editing, requestTimestamp, onMobile) {
         let referenced = lastEditionTime.hasOwnProperty(id);
         let edited = message.edited;
 
-        if (referenced ) {
+        if (referenced) {
             let [timestamp, edition, deleted] = lastEditionTime[id];
             if (deleted) {
                 continue;
@@ -2540,31 +2540,20 @@ function addMessages(messages, editing, requestTimestamp, onMobile) {
             }
         }
 
-
         let newBloc = makeMessage(message);
 
-        // Si c'est un nouveau message, on l'ajoute sans équivoque
-        // Sinon, on ne met à jour QUE si on est pas sur mobile (puisque sinon edited == undefined)
-        if ( !referenced  || !onMobile) {
-            lastEditionTime[id] = [requestTimestamp, edited, false];
-        }
+        lastEditionTime[id] = [requestTimestamp, edited, false];
 
-        // En gros : sur mobile on a pas accès à la date d'édition du message, donc on ignore
-        // Il ne faut mettre à jour le message QUE si on est pas sur Mobile
-        // Par contre, s'il a déjà été référence, il faut quand même "continue" pour ne pas
-        // l'ajouter continuellement.
-        if (referenced ) {
-            if (!onMobile) {
-                let selector = `.jvchat-message[jvchat-id="${id}"]`;
-                let oldBloc = main.querySelector(selector).closest(".jvchat-bloc-message");
-                let isDown = isScrollDown();
-                oldBloc.outerHTML = newBloc;
-                if (isDown) {
-                    setScrollDown();
-                }
-                let event = new CustomEvent('jvchat:newmessage', { 'detail': { id: id, isEdit: true } });
-                dispatchEvent(event);
+        if (referenced) {
+            let selector = `.jvchat-message[jvchat-id="${id}"]`;
+            let oldBloc = main.querySelector(selector).closest(".jvchat-bloc-message");
+            let isDown = isScrollDown();
+            oldBloc.outerHTML = newBloc;
+            if (isDown) {
+                setScrollDown();
             }
+            let event = new CustomEvent('jvchat:newmessage', { 'detail': { id: id, isEdit: true } });
+            dispatchEvent(event);
             continue;
         }
 
@@ -2582,8 +2571,6 @@ function addMessages(messages, editing, requestTimestamp, onMobile) {
 
     if (toInsert !== "") {
         let isDown = isScrollDown();
-
-
         main.insertAdjacentHTML("beforeend", toInsert);
         if (isDown) {
             setScrollDown();
@@ -2748,13 +2735,12 @@ function setUser(document, user) {
     if ((userConnected === undefined && isConnected) || (userConnected !== undefined && isConnected !== userConnected)) {
         document.getElementById("jvchat-profil").classList.toggle("jvchat-hide");
         let isDown = isScrollDown();
-
         if (document.URL.includes("jeuxvideo.com/messages-prives")){
 
             document.getElementById("repondre-mp").classList.toggle("jvchat-hide");
     }
     else{
-        document.getElementById("bloc-formulaire-forum").classList.toggle("jvchat-hide");
+         document.getElementById("bloc-formulaire-forum").classList.toggle("jvchat-hide");
     }
         if (isDown) {
             setScrollDown();
@@ -2887,6 +2873,10 @@ function triggerJVChat() {
         toggleTextarea();
     }
 
+    if (messageTopic && (defaultReduced === false || (messageTopic.value !== ""))) {
+        toggleTextarea();
+    }
+
     let event = new CustomEvent('jvchat:activation');
     dispatchEvent(event);
 
@@ -2896,32 +2886,11 @@ function triggerJVChat() {
     setInterval(tryCatch(checkEdited), checkEditedInterval);
 }
 
-function activateUseMobileMode() {
-    refreshInfosAcceptable = [];
-    for (i = 0; i < 10; i++) {
-        refreshInfosAcceptable.push(false);
-    }
-    refreshInfosTimeoutId = setInterval(tryCatch(refreshInfos), 30000);
-    useMobileForUpdateMessages = true;
-}
-
-function deactivateUseMobileMode() {
-    refreshInfosAcceptable = [];
-    clearTimeout(refreshInfosTimeoutId);
-    useMobileForUpdateMessages = false;
-    switchToMobileTimeoutId = -1;
-    refreshInfosTimeoutId = -1;
-}
-
 function refreshNoLongerDegraded() {
     removeDegradedRefreshWarning();
-    if (switchToMobileTimeoutId !== -1) {
-        clearTimeout(switchToMobileTimeoutId);
-    }
     timeoutedDates = [];
     refreshDegraded = false;
     refreshDegradedTimeoutId = -1;
-    switchToMobileTimeoutId = -1;
 }
 
 function scheduleDegradedRefreshWarning() {
@@ -2946,10 +2915,6 @@ function scheduleDegradedRefreshWarning() {
             refreshDegraded = true;
             updateIntervalIdx = 2;
             setDegradedRefreshWarning();
-            if (!useMobileForUpdateMessages && switchToMobileTimeoutId === -1) {
-                let delay = 90 * 1000 + Math.round(Math.random() * 30 * 1000);
-                switchToMobileTimeoutId = setTimeout(tryCatch(activateUseMobileMode), delay);
-            }
         } else {
             return;
         }
@@ -2974,7 +2939,6 @@ function updateMessages(page, goToLast) {
     }
 
     let timestamp = getTimestamp();
-    let isRequestMadeOnMobile = useMobileForUpdateMessages && !turboActivated;
 
     function scheduleNextUpdate(interval, p, goLast) {
         fetchingMessages = false;
@@ -2990,7 +2954,7 @@ function updateMessages(page, goToLast) {
             parsed = parsePage(res, timestamp);
         }
         else{
-            parsed = isRequestMadeOnMobile ? parsePageMobile(res, timestamp) : parsePage(res, timestamp);
+            parsed = parsePage(res, timestamp);
         }
 
         let lastPage = parsed.lastPage;
@@ -3034,61 +2998,17 @@ function updateMessages(page, goToLast) {
     fetchingMessages = true;
     currentFetchedPage = page;
     urlToFetch.page = page;
-
+    //urlToFetch.domain = "https://www.jeuxvideo.com/forums";
     if (!document.URL.includes("jeuxvideo.com/messages-prives")){
-        urlToFetch.domain = isRequestMadeOnMobile ? "https://m.jeuxvideo.com/forums" : "https://www.jeuxvideo.com/forums";
+        urlToFetch.domain =  "https://www.jeuxvideo.com/forums";
     }
-
 
     let urlLastPage = buildURL(urlToFetch);
     request("GET", urlLastPage, onSuccess, onError, onTimeout, undefined, false, timeout, turboActivated);
 }
 
-function refreshInfos() {
-    if (isError) {
-        return;
-    }
-
-    let timestamp = getTimestamp();
-
-    function onSuccess(res) {
-        let elapsed = getTimestamp() - timestamp;
-
-        parsePage(res, timestamp);
-
-        refreshInfosAcceptable.shift();
-
-        if (elapsed > 10000) {
-            refreshInfosAcceptable.push(false);
-        } else {
-            refreshInfosAcceptable.push(true);
-            let allAcceptable = true;
-            for (let acceptable of refreshInfosAcceptable) {
-                allAcceptable &= acceptable;
-            }
-            if (allAcceptable) {
-                deactivateUseMobileMode();
-            }
-        }
-    }
-
-    function onError(_, _) {
-        refreshInfosAcceptable.shift();
-        refreshInfosAcceptable.push(false);
-    }
-
-    function onTimeout(_) {
-        refreshInfosAcceptable.shift();
-        refreshInfosAcceptable.push(false);
-    }
-
-    let url = buildURL(urlToRefreshInfos);
-
-    request("GET", url, onSuccess, onError, onTimeout, undefined, false, 20000, false);
-}
-
 function checkEdited() {
-    if (!shouldCheckEdited || currentFetchedPage === 1 || isError || useMobileForUpdateMessages) {
+    if (!shouldCheckEdited || currentFetchedPage === 1 || isError) {
         return;
     }
 
@@ -3153,8 +3073,10 @@ function parseAlerts(res) {
         } else if (a.classList.contains("alert-success")) {
             type = "success";
         }
-        let message = a.getElementsByClassName("alert-row")[0].textContent.trim();
-        alerts.push({ type: type, message: message });
+        for (let p of a.getElementsByTagName("p")) {
+            let message = p.textContent.trim();
+            alerts.push({ type: type, message: message });
+        }
     }
     return alerts;
 }
@@ -3167,88 +3089,6 @@ function increaseUpdateInterval() {
 
 function decreaseUpdateInterval() {
     updateIntervalIdx = transisitions[updateIntervalIdx];
-}
-
-function parsePageMobile(res, requestTimestamp) {
-    let error = getTopicError(res);
-    if (error !== undefined) {
-        if (!isError) {
-            updateIntervalIdx = updateIntervalMax;
-            isError = true;
-            setFixedAlert("danger", error);
-        }
-        return { lastPage: undefined, page: undefined, alert: true, nbMessagesPage: 0 }
-    }
-
-    if (isError) {
-        isError = false;
-        updateIntervalIdx = 2;
-        removeFixedAlert("Le topic ne retourne plus d'erreur");
-    }
-
-    // let form = getForm(res);
-    // if (form !== undefined) {
-    //     freshForm = form;
-    // }
-
-    // let hash = getHash(res);
-    // if (hash !== undefined) {
-    //     freshHash = hash;
-    // }
-
-    // let deletionHash = getDeletionHash(res);
-    // if (deletionHash !== undefined) {
-    //     freshDeletionHash = deletionHash;
-    // }
-
-    let messages = getMessagesMobile(res);
-    addMessages(messages, false, requestTimestamp, true);
-
-    // let user = parseUserInfo(res);
-    // setUser(document, user);
-
-    let topic = parseTopicInfoMobile(res);
-    let nbMessages = (topic.lastPage - 1) * 20;
-    if (topic.page === topic.lastPage) {
-        nbMessages += messages.length;
-    }
-    if (topic.page === topic.lastPage || nbMessages > topicNbMessages) {
-        setTopicNbMessages(document, nbMessages);
-    }
-
-    // Pas la peine d'implémenter le "findDeletedMessageMobile" car c'est pas fiable du tout
-    // Des fois on fait F5 et des messages disparaissent puis réaparaissent au F5 suivant...
-
-    // findDeletedMessages(res, requestTimestamp);
-
-    //setTopicNbConnected(document, topic.connected);
-
-    // let alerts = parseAlerts(res);
-    // for (let alert of alerts) {
-    //     addAlertbox(alert.type, alert.message);
-    // }
-
-    // let locked = getTopicLocked(res);
-    // let isLocked_ = (locked !== undefined);
-
-    // if (isLocked_ && !isLocked) {
-    //     updateInterval = updateIntervalMax;
-    //     setFixedAlert("warning", locked);
-    // } else if (!isLocked_ && isLocked) {
-    //     updateInterval = 0;
-    //     removeFixedAlert("Le topic a été dévérouillé");
-    // }
-    // isLocked = isLocked_;
-
-    // let sondage = parseSondage(res);
-    // if (sondage) {
-    //     setSondage(sondage);
-    // }
-
-    return {
-        page: topic.page, lastPage: topic.lastPage,
-        nbMessagesPage: messages.length, alert: false
-    };
 }
 
 function parsePage(res, requestTimestamp) {
@@ -3269,7 +3109,6 @@ function parsePage(res, requestTimestamp) {
     }
 
     let form = getForm(res);
-
     if (form !== undefined) {
         freshForm = form;
     }
@@ -3285,7 +3124,6 @@ function parsePage(res, requestTimestamp) {
     }
 
     let messages = getMessages(res);
-
     addMessages(messages, false, requestTimestamp, false);
 
     let user = parseUserInfo(res);
@@ -3421,8 +3259,7 @@ function addJVChatButton(document) {
     }
     </style>`
     }
-    else {
-        css = `<style type="text/css">
+    else { css = `<style type="text/css">
     #forum-main-col .bloc-pre-pagi-forum {
         display: flex;
     }
@@ -3449,9 +3286,8 @@ function addJVChatButton(document) {
     </style>`
     }
 
-
     document.head.insertAdjacentHTML("beforeend", css);
-    let blocPreRight ;
+   let blocPreRight ;
 
     if (document.URL.includes("jeuxvideo.com/messages-prives")){
         blocPreRight = document.getElementsByClassName("action-bar pagination");
@@ -3469,7 +3305,7 @@ function addJVChatButton(document) {
 function bindJVChatButton(document) {
     let buttons = document.getElementsByClassName('btn-jvchat');
     for (let btn of buttons) {
-        btn.addEventListener('click', tryCatch(triggerJVChat));
+        btn.addEventListener('click', triggerJVChat);
     }
 }
 
@@ -3740,7 +3576,6 @@ function dontScrollOnExpand(event) {
     } else if (classes.contains("jvchat-quote")) {
         let bloc = target.closest(".jvchat-message");
         let quote = reverseQuote(bloc);
-
         let textarea ;
         if (document.URL.includes("jeuxvideo.com/messages-prives")){
             textarea = document.getElementById("message");
